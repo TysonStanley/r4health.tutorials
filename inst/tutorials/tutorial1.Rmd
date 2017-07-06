@@ -1,5 +1,5 @@
 ---
-title: "R for the Health, Behavioral, Social, and Educational Sciences: Tutorial # 1"
+title: "R Tutorial 1"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
