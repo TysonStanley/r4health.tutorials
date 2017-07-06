@@ -1,0 +1,249 @@
+---
+title: "R for the Health, Behavioral, Social, and Educational Sciences: Tutorial # 1"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Base R Syntax and Tidyverse
+### Base R
+
+Write the R code required to create a numeric vector called `x`:
+```{r vectorn, exercise=TRUE}
+
+```
+
+Write the R code required to create a factor vector called `y`:
+```{r vectorf, exercise=TRUE}
+
+```
+
+Write the R code required to create a data frame built of `x` and `y` called `df`:
+```{r df1, exercise=TRUE}
+
+```
+
+
+### Importing Your Data
+
+You have data that is comma delimited called `yourdata.csv`. Write the R code necessary to important that data.
+```{r import1, exercise=TRUE}
+
+```
+
+Fill in the following missing pieces to make import an SPSS file. [Do Not Run Code]
+```{r add-function, exercise=TRUE, exercise.lines = 4}
+library( )
+df <- read ("yourdata.sav")
+```
+
+### Quick Summaries
+
+```{r quiz1}
+quiz(
+  question("Which function(s) can give you a summary of your entire data frame?",
+    answer("factor()"),
+    answer("table1()", correct = TRUE),
+    answer("summary()", correct = TRUE),
+    answer("table()"),
+    answer("No such functions exist!")
+  )
+)
+```
+
+Use the three step summary to assess the mean of `y` grouped by `x` in the data frame `df`.
+```{r threestep, exercise=TRUE, exercise.eval=TRUE}
+df <- data.frame(
+  "x" = c(0,0,0,0,0,1,1,1,1,1),
+  "y" = c(0,1,3,1,4,2,3,4,2,3)
+)
+
+
+```
+
+```{r threestep-hint}
+df <- data.frame(
+  "x" = c(0,0,0,0,0,1,1,1,1,1),
+  "y" = c(0,1,3,1,4,2,3,4,2,3)
+)
+
+df %>%
+  group_by() %>%
+  summarize()
+```
+
+
+## Reshaping and Other Cleaning
+
+### Reshaping
+```{r quiz2}
+quiz(
+  question("Which function(s) can take your data from wide format to long format?",
+    answer("reshape()", correct = TRUE),
+    answer("gather()", correct = TRUE),
+    answer("spread()"),
+    answer("long()", correct = TRUE)
+  )
+)
+```
+
+Reshape the following wide form data frame to a long form.
+```{r reshape1, exercise=TRUE, exercise.eval=TRUE}
+df_wide <- data.frame(
+  "x"  = c(0,0,0,0,0,1,1,1,1,1),
+  "y1" = c(0,1,3,1,4,2,3,4,2,3),
+  "y2" = c(2,1,3,2,4,3,5,2,3,1)
+)
+
+
+```
+
+```{r reshape1-hint}
+df_wide <- data.frame(
+  "x"  = c(0,0,0,0,0,1,1,1,1,1),
+  "y1" = c(0,1,3,1,4,2,3,4,2,3),
+  "y2" = c(2,1,3,2,4,3,5,2,3,1)
+)
+
+df_long <- long(df_wide,
+                c(),
+                v.names = )
+```
+
+### Cleaning
+
+Change all 999's to NA in the data frame. The data frame has five variables---`x`, `y`, `z`, `a`, and `b`. Use a loop.
+```{r toNA, exercise=TRUE, exercise.lines = 4, exercise.eval=TRUE}
+
+```
+```{r toNA-hint}
+library(furniture)
+df[] = lapply(df )
+```
+
+Change all `NaN`'s to NA in the data frame. Again, the data frame has five variables---`x`, `y`, `z`, `a`, and `b`. Use a loop.
+```{r toNA2, exercise=TRUE, exercise.lines = 4, exercise.eval=TRUE}
+
+```
+```{r toNA2-hint}
+library(furniture)
+df[] = lapply(df )
+```
+
+### Joining
+Write the R code necessary to join `df1` and `df2` by variable `ID`. We want to keep all those in `df1`.
+```{r joining1, exercise=TRUE}
+
+```
+
+### Mutating
+
+Add a variable called `z` to `df` that is equal to `1` if `x` is greater than `10`, `0` if `x` is less than or equal to `10`, and `NA` otherwise.
+```{r mutate1, exercise=TRUE, exercise.lines = 4}
+df_wide <- data.frame(
+  "x" = c(10,7,13,11,4,12,9,4,8,3),
+  "y" = c(2,1,3,2,4,3,5,2,3,1)
+)
+
+
+```
+
+### Selecting and Filtering
+
+We only want to keep individuals with a depression score (`dep`) greater than 10. Finish the code below to do that.
+```{r select1, exercise=TRUE, exercise.lines = 4}
+df2 <- df %>%
+   (dep > 10)
+```
+
+```{r quiz3}
+quiz(
+  question("Can we select and filter in the same overall step? If so, how?",
+    answer("No way. Stupid idea."),
+    answer("Yes; using a pipe you can select and then filter or vice versa.", correct = TRUE),
+    answer("Yes; using the function select_filter() it is easy."),
+    answer("Yes; but I don't know how.")
+  )
+)
+```
+
+
+## `ggplot2`, Tables, and Output
+
+### `ggplot2`
+```{r gg1, exercise=TRUE, exercise.lines = 4}
+ggplot(df, aes(x = gender, y = productivity_mean, color = gender)) +
+  geom_bar(stat = "identity") +
+  theme_classic() +
+  scale_color_manual(values = c("dodgerblue", "coral"))
+```
+
+```{r quiz4}
+quiz(
+  question("What kind of plot do you expect from the previous ggplot code?",
+    answer("A blank plot."),
+    answer("A histogram showing the frequencies of each gender."),
+    answer("No. Just no."),
+    answer("A bar plot showing the mean of productivity for each gender.", correct = TRUE)
+  ),
+  question("What colors do you expect to see on the plot?",
+    answer("It's a colorless world so I expect no colors to be present."),
+    answer("The bars will be outlined in blue or coral.", correct = TRUE),
+    answer("The bars will be filled in with blue or coral."),
+    answer("The bars will be filled in and outlined with blue or coral.")
+  ),
+  question("Why did it use `stat = 'identity'`?",
+    answer("To trick me."),
+    answer("It makes it so the plot is a bar plot instead of a histogram.", correct = TRUE),
+    answer("It is actually unnecessary since it is the default."),
+    answer("To remind the plot who he or she is.")
+  )
+)
+```
+
+We want to show the growth from time 1 to time 2 in the `y` variable and color it (group it by `id` so we have a spaghetti plot) by `x`. Fix the code to make the plot work.
+```{r gg2, exercise=TRUE, exercise.lines = 9, exercise.eval=TRUE, warning=FALSE, message=FALSE}
+df_wide <- data.frame(
+  "id" = 1:10,
+  "x"  = c(0,0,0,0,0,1,1,1,1,1),
+  "y1" = c(0,1,3,1,4,2,3,4,2,3),
+  "y2" = c(2,1,3,2,4,3,5,2,3,1)
+)
+library(tidyverse)
+ggplot(df_wide, aes(x = y1, y = y2, group = id, color = x)) +
+  geom_line()
+```
+```{r gg2-hint}
+library(furniture)
+## Reshape!!!
+df_long = long(df_wide,
+               c("y1", "y2"),
+               v.names = "y")
+## Now plot it
+```
+
+### Tables
+
+
+
+
+### Adjusting Output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
