@@ -13,6 +13,7 @@ Depends:
     knitr,
     foreign,
     learnr,
+    shiny,
     tidyverse
 License: GPL-2
 Encoding: UTF-8
