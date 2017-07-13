@@ -228,22 +228,24 @@ df_long = long(df_wide,
 
 ### Tables
 
+You are given the following data frame and want to create a table of descriptives. Demonstrate how you would obtain this table?
+```{r tab1, exercise=TRUE, exercise.lines = 8, exercise.eval=TRUE, warning=FALSE, message=FALSE}
+df_wide <- data.frame(
+  "id" = 1:10,
+  "x"  = c(0,0,0,0,0,1,1,1,1,1),
+  "y1" = c(0,1,3,1,4,2,3,4,2,3),
+  "y2" = c(2,1,3,2,4,3,5,2,3,1)
+)
+```
 
-
-
-### Adjusting Output
-
-
-
-
-
-
-
-
-
-
-
-
-
+Using the tidyverse framework, show the "three step summary" on the following data frame.
+```{r tab1, exercise=TRUE, exercise.lines = 8, exercise.eval=TRUE, warning=FALSE, message=FALSE}
+df_wide <- data.frame(
+  "id" = 1:10,
+  "x"  = c(0,0,0,0,0,1,1,1,1,1),
+  "y1" = c(0,1,3,1,4,2,3,4,2,3),
+  "y2" = c(2,1,3,2,4,3,5,2,3,1)
+)
+```
 
 
